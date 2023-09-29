@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        body{
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            height:100vh;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body > div{
+            box-shadow:1px 1px 30px rgba(0,0,0,0.07);
+            border-radius:15px;
+            padding:40px;
+            box-sizing: border-box;
+        }
+
+        h1{
+            font-size:1.5rem;
+            margin:0px;
+            margin-bottom:15px;
+        }
+
+        input{
+            width:100%;
+            height:45px;
+            border-radius:5px;
+            margin:5px 0;
+            border:2px solid #F2F2F2;
+            text-indent:10px;
+            box-sizing: border-box;
+        }
+
+        button{
+            background:#000;
+            color:#FFF;
+            border-radius:5px;
+            padding:15px;
+            border:0px;
+            box-sizing: border-box;
+            font-weight: 700;
+            margin-top:15px;
+        }
+
+        .text-right{
+            text-align:right;
+        }
+
+        img{
+            max-width:400px;
+            border-radius:10px;
+            margin-top:20px;
+        }
+
+        #resultat{
+            font-size:0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <h1>Découvre toi quand tu avais 1 an</h1>
+        <input type="text" id="prompt" placeholder="Description en anglais">
+        <input type="text" id="photo" placeholder="URL de ta photo">
+        <div class="text-right">
+            <button onclick="go()">Go</button>
+        </div>
+        <div id="resultat">
+
+        </div>
+    </div>
+
+    <script>
+        const go = async () => {
+
+  
+            const prompt = document.querySelector("#prompt").value
+            const imgUrl = document.querySelector("#photo").value
+            
+
+            const req = await fetch(`/generateImage/?prompt=${prompt}&imgUrl=${imgUrl}`)
+
+            const json = await req.json()
+
+            if(json.success == true){
+                document.querySelector("#resultat").innerHTML = 'Veuillez patienter...';
+                getImage(json.messageId)
+            }
+            else{
+                document.querySelector("#resultat").innerHTML = 'Une erreur est survenue...';
+            }
+
+        }
+
+        const getImage = async (id) => {
+            let i = 0;
+            const intervalId = setInterval(async () => {
+                i++;
+                document.querySelector("#resultat").innerHTML = 'Génération de l\image... ('+i+' sur max 2min)';
+                const ch = await fetch(`/getImage/?id=${id}`);
+                const resp = await ch.json();
+
+                if(resp.progress == 100){
+                    document.querySelector("#resultat").innerHTML = `<img src='${resp.response.imageUrl}'>`;
+                    clearInterval(intervalId); // Arrête l'intervalle
+                }
+
+            }, 1000);
+        };
+
+    </script>
+    
+</body>
+</html>

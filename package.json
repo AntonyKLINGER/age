@@ -1,0 +1,21 @@
+{
+  "name": "midjourney",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.mjs",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async-mutex": "^0.4.0",
+    "axios": "^1.5.1",
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.2",
+    "nodemon": "^3.0.1",
+    "tnl-midjourney-api": "^1.0.3"
+  }
+}
