@@ -1,7 +1,7 @@
 import express from 'express';
 import { TNL } from 'tnl-midjourney-api';
 import fetch from 'node-fetch';
-import { Mutex } from 'async-mutex/lib/index.js';
+import { Mutex } from 'async-mutex'
 const app = express()
 const port = process.env.PORT || 3000;
 
@@ -49,8 +49,8 @@ app.get('/getImage', async (req, res) => {
     res.json(result)
 })
 
-app.get('/test', (req, res) => {
-    res.send('ok')
+app.get("/test", (req, res) => {
+    res.send("tst")
 })
 
 app.listen(port, () => {
