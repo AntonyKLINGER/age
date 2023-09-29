@@ -1,7 +1,7 @@
 import express from 'express';
 import { TNL } from 'tnl-midjourney-api';
 import fetch from 'node-fetch';
-import { Mutex } from 'async-mutex'
+import { Mutex } from 'async-mutex/lib/index.js';
 const app = express()
 const port = process.env.PORT || 3000;
 
