@@ -3,7 +3,7 @@ import { TNL } from 'tnl-midjourney-api';
 import fetch from 'node-fetch';
 import { Mutex } from 'async-mutex'
 const app = express()
-const port = 5000
+const port = process.env.PORT || 3000;
 
 const mutex = new Mutex(); // Créer un nouveau Mutex
 
