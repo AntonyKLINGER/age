@@ -49,6 +49,10 @@ app.get('/getImage', async (req, res) => {
     res.json(result)
 })
 
+app.get('/test', (req, res) => {
+    res.send('ok')
+})
+
 app.listen(port, () => {
     console.log(`App is running at http://localhost:${port}`)
 });
